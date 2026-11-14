@@ -1,0 +1,112 @@
+:root {
+  --bg-off: #060908;
+  --bg-on: #0b1511;
+  --glow: rgba(150, 205, 120, 0.28);
+  --track: #1a1f1c;
+  --knob: #8a8d84;
+  --knob-on: #b9e39c;
+  --text-dim: #5d675f;
+  --text-lit: #b9e39c;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;           
+}
+
+body {
+  background: var(--bg-off);
+  transition: background 0.8s ease;
+}
+
+body.on { background: var(--bg-on); }
+
+.bg-radio {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: max(100vw, 137.5vh);    
+  height: max(100vh, 72.727vw);
+  transform: translate(-50%, -50%);
+}
+
+.bg-radio img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+
+.bg-radio img.starting { animation: stutter 1.2s steps(1) 1; }
+
+@keyframes stutter {
+  0%   { opacity: 1; }
+  15%  { opacity: 0.6; }
+  30%  { opacity: 1; }
+  55%  { opacity: 0.75; }
+  70%  { opacity: 1; }
+  85%  { opacity: 0.85; }
+  100% { opacity: 1; }
+}
+
+
+.btn {
+  position: absolute;
+  left: 36%;
+  top: 72.5%;
+  width: 4%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.btn:hover { box-shadow: 0 0 0 8px rgba(185, 227, 156, 0.35); }
+.btn:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-radio img.starting { animation: none; }
+  body { transition: none; }
+}
+
+.tune {
+  position: absolute;
+  top: 74.5%;
+  width: 9%;
+  aspect-ratio: 1;           
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;          
+  background: transparent;
+  color: transparent;
+  font-size: clamp(50px, 6vw, 78px);
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.tune-left  { left: 23%; }
+.tune-right { left: 78.5%; }
+.tune-right { top: 73.5%; }
+
+.tune:hover {
+  background: rgba(0, 0, 0, 0.12);
+  color: rgba(30, 40, 24, 0.8);
+  box-shadow: 0 0 0 15px rgba(185, 227, 156, 0.35);  
+}
+
+.tune:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
+
+body:not(.on) .tune {
+  pointer-events: none;
+  cursor: default;
+}
